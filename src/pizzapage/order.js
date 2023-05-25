@@ -3,18 +3,34 @@ import React from "react";
 
 function Order(props){
     
+    const {change, values, submit, disabled, errors } = props
+
+    const onSubmit = event =>{
+        event.preventDefault();
+        submit()
+    }
+
+    const onChange = event =>{
+        const {name, value, type, checked} = event.target
+        const pizza = type === 'checkbox' ? checked : value;
+        change(name, pizza)
+        
+    }
+
+
+
     
     return(
         <div>
-                    <Order>
+                    <Order onSubmit={onSubmit} id="pizza-order">
                         <h1> Order Here!</h1> 
                 {/* title and then label for the following form with text boxes */}
                                 <label>
-                    Order For:  <input name="Name" id="name-input" type="text" value={values.name}><br></br></input>
+                    Order For:  <input name="Name" id="name-input" type="text" value={values.name} onChange={onChange}><br></br></input>
                                 </label>
                                 
                                 <label>
-                    Pizza Size:     <select name="size" id="size" value={values.size} >
+                    Pizza Size:     <select name="size" id="size" value={values.size} onChange={onChange} >
                                     <option value=''> Choose your size pizza!</option>
                                     <option value="small"> small 12inch</option>
                                     <option value="medium"> medium 16inch</option>
