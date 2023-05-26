@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from "react";
 import "./App.css"
-import {Router, Link, Switch} from "react-router-dom";
+import {Route, Link, Switch} from "react-router-dom";
 import Order from "./pizzapage/order";
 import Confirmation from "./pizzapage/Confirmation";
 import formSchema from "./pizzapage/formSchema";
@@ -42,12 +42,63 @@ const App = () => {
   const confirmation = () => {
     history.push('/pizzapage/confirmation')
   }
+  const validate = (name, value) =>{
+    yup.reach(formSchema, name).validate(value).then(()=> setFormErrors({...formErrors, [name]:''})).catch(error => setFormErrors({...formErrors, [name]: error.errors[0]}))
+  }
   
-  
+
+  const postOrder = newOrder => {
+    axios.post(`https://reqres.in/api/orders`, newOrder).then(res => {setOrder(res.data)}).catch(error=>{console.log(error)}).finally(()=>{
+      setFormValues(initialFormValues).confirmation()
+    })
+  }
+
+  const inputChange = (name, value) => {
+    validate(name, value)
+    setFormErrors({...formValues, [name]: value})
+  }
+
+  const formSubmit = () => {
+    const newOrder = {
+      name: formValues.name.trim(),
+      size: formValues.size,
+      custom: formValues.custom,
+      toppings: ['bacon', 'sausage', 'pepperoni', 'peppers', 'mushrooms', 'pinneapple']
+      .filter(toppings =>formValues[toppings])
+    }
+    postOrder(newOrder)
+  }
+
+  useEffect(()=> {
+    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
+
+
+
+
+
+
+
   return (
     <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
+      <h1>Lambda Za</h1>
+      <p>You can remove this code and create your own header or I can not</p>
+      <div className="nav-links">
+        <Link exact to='/'> Home</Link>
+        <Link to= {{pathname:'/pizzapage/order'}} id='pizza-order'> Order</Link>
+      </div>
+
+
+      <Switch>
+        <Route path='/' component ={LandingPage}>
+          <Confirmation path='/pizzapage/Confirmation' component={Confirmation}/>
+        </Route>
+        <Route>
+          <Order path='/pizzapage/Order' component={Order} values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors}/>
+        </Route>
+      </Switch>
+
+
     </>
   );
 };
