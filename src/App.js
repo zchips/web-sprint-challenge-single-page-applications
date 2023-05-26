@@ -1,12 +1,12 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css"
-import {Route, Link, Switch} from "react-router-dom";
+import { Route, Link, Routes } from "react-router-dom";
 import Order from "./pizzapage/order";
 import Confirmation from "./pizzapage/Confirmation";
 import formSchema from "./pizzapage/formSchema";
 import axios from 'axios';
-import{ useHistory } from 'react-router-dom'
-import * as yup from 'yup'
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 import LandingPage from "./pizzapage/LandingPage";
 
 
@@ -33,29 +33,30 @@ const initialFormValues = {
 
 
 const App = () => {
-  const history = useHistory()
-  const [order, setOrder] = useState(blankOrder)
-  const [formValues, setFormValues] = useState(initialFormValues)
-  const [formErrors, setFormErrors] = useState(initialFormErrors)
-  const [disabled, setDisabled] = useState(initialDisabled)
+  const navigate = useNavigate();
+  const [order, setOrder] = useState(blankOrder);
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const confirmation = () => {
-    history.push('/pizzapage/confirmation')
+    navigate('/pizzapage/confirmation');
   }
   const validate = (name, value) =>{
-    yup.reach(formSchema, name).validate(value).then(()=> setFormErrors({...formErrors, [name]:''})).catch(error => setFormErrors({...formErrors, [name]: error.errors[0]}))
+    yup.reach(formSchema, name).validate(value).then(()=> setFormErrors({...formErrors, [name]:''})).catch(error => setFormErrors({...formErrors, [name]: error.errors[0]}));
   }
   
 
   const postOrder = newOrder => {
     axios.post(`https://reqres.in/api/orders`, newOrder).then(res => {setOrder(res.data)}).catch(error=>{console.log(error)}).finally(()=>{
-      setFormValues(initialFormValues).confirmation()
-    })
+      setFormValues(initialFormValues);
+      confirmation();
+    });
   }
 
   const inputChange = (name, value) => {
-    validate(name, value)
-    setFormErrors({...formValues, [name]: value})
+    validate(name, value);
+    setFormErrors({...formValues, [name]: value});
   }
 
   const formSubmit = () => {
@@ -66,18 +67,12 @@ const App = () => {
       toppings: ['bacon', 'sausage', 'pepperoni', 'peppers', 'mushrooms', 'pinneapple']
       .filter(toppings =>formValues[toppings])
     }
-    postOrder(newOrder)
+    postOrder(newOrder);
   }
 
   useEffect(()=> {
-    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-  }, [formValues])
-
-
-
-
-
-
+    formSchema.isValid(formValues).then(valid => setDisabled(!valid));
+  }, [formValues]);
 
   return (
     <>
@@ -88,18 +83,13 @@ const App = () => {
         <Link to= {{pathname:'/pizzapage/order'}} id='pizza-order'> Order</Link>
       </div>
 
-
-      <Switch>
-        <Route path='/' component ={LandingPage}>
-          <Confirmation path='/pizzapage/Confirmation' component={Confirmation}/>
-        </Route>
-        <Route>
-          <Order path='/pizzapage/Order' component={Order} values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors}/>
-        </Route>
-      </Switch>
-
-
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/pizzapage/confirmation" element={<Confirmation />} />
+        <Route path="/pizzapage/order" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
+      </Routes>
     </>
   );
 };
-export default App;
+
+export default App

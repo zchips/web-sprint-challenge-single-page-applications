@@ -11,3 +11,5 @@ function Confirmation(props){
         </div>
     )
 }
+
+export default Confirmation

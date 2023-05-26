@@ -1,11 +1,11 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 const ImgContainer = styled.div`
-position: relative;
+    position: relative;
     width: 100%;
-    button{
+    button {
         position: absolute;
         top: 35%;
         left: 75%;
@@ -19,23 +19,24 @@ position: relative;
         cursor: pointer;
         border-radius: 5px;
     }
-    button:hover{
-        background-color:black;
+    button:hover {
+        background-color: black;
         border: 4px solid #555;
     }
-`
-const Img = styled.img`
-width: 100%;
-height: 125vh;
-`
-export default function LandingPage(props) {
+`;
 
-    const history = useHistory()
+const Img = styled.img`
+    width: 100%;
+    height: 125vh;
+`;
+
+export default function LandingPage(props) {
+    const navigate = useNavigate();
 
     const routeToShop = () => {
-        console.log('Submitting something to go to next page')
-        history.push('/pizza')
-    }
+        console.log('Submitting something to go to the next page');
+        navigate('/pizza');
+    };
 
     return (
         <ImgContainer>
@@ -51,5 +52,5 @@ export default function LandingPage(props) {
                 Order Now!
             </button>
         </ImgContainer>
-    )
+    );
 }
