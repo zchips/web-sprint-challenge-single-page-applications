@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css"
 import { Route, Link, Routes } from "react-router-dom";
-import Order from "./pizzapage/order";
-import Confirmation from "./pizzapage/Confirmation";
-import formSchema from "./pizzapage/formSchema";
+import Order from "./pizza/order";
+import Confirmation from "./pizza/Confirmation";
+import formSchema from "./pizza/formSchema";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import LandingPage from "./pizzapage/LandingPage";
+import HomePage from "./pizza/HomePage";
 
 
 const blankOrder = []
@@ -40,7 +40,7 @@ const App = () => {
   const [disabled, setDisabled] = useState(initialDisabled);
 
   const confirmation = () => {
-    navigate('/pizzapage/confirmation');
+    navigate('/pizza/confirmation');
   }
   const validate = (name, value) =>{
     yup.reach(formSchema, name).validate(value).then(()=> setFormErrors({...formErrors, [name]:''})).catch(error => setFormErrors({...formErrors, [name]: error.errors[0]}));
@@ -80,13 +80,13 @@ const App = () => {
       <p>You can remove this code and create your own header or I can not</p>
       <div className="nav-links">
         <Link to='/'> Home</Link>
-        <Link to='/pizzapage/order' id='pizza-order'> Order</Link>
+        <Link to='/pizza/order' id='pizza-order'> Order</Link>
       </div>
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/pizzapage/confirmation" element={<Confirmation />} />
-        <Route path="/pizzapage/order" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/pizza/confirmation" element={<Confirmation />} />
+        <Route path="/pizza/order" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
       </Routes>
     </div>
   );

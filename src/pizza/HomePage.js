@@ -35,7 +35,7 @@ export default function LandingPage(props) {
 
     const routeToShop = () => {
         console.log('Submitting something to go to the next page');
-        navigate('/pizzapage/order');
+        navigate('/pizza/order');
     };
 
 
@@ -50,6 +50,7 @@ export default function LandingPage(props) {
             <button
                 onClick={routeToShop}
                 className='md-button shop-button'
+                id='order-pizza'
             >
                 Order Now!
             </button>
