@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css"
 import { Route, Link, Routes } from "react-router-dom";
-import Order from "./pizza/order";
+import Order from "./pizza";
 import Confirmation from "./pizza/Confirmation";
 import formSchema from "./pizza/formSchema";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import HomePage from "./pizza/HomePage";
+import HomePage from "./HomePage";
 
 
 const blankOrder = []

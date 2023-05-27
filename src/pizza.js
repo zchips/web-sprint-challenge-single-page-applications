@@ -16,11 +16,11 @@ function Order(props) {
 
   return (
     <div className="container">
-      <form onSubmit={onSubmit} id="pizza-order">
+      <form onSubmit={onSubmit} id="pizza-form">
         <h1>Order Here!</h1>
         
         <div className="form-group">
-          <label htmlFor="name-input">Order For:</label>
+          <label id="name-input">Order For:</label>
           <input
             type="text"
             name="name"
@@ -33,7 +33,7 @@ function Order(props) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="size">Pizza Size:</label>
+          <label id="size-dropdown">Pizza Size:</label>
           <select
             name="size"
             id="size"
@@ -64,7 +64,7 @@ function Order(props) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="custom-box">Allergies?</label>
+          <label id="special-text">Allergies?</label>
           <input
             type="text"
             name="custom"
@@ -84,8 +84,9 @@ function Order(props) {
         <button
           type="submit"
           id="order-button"
-          disabled={disabled}
+          disabled={!disabled}
           className="btn btn-primary"
+          onClick={submit}
         >
           Submit
         </button>
