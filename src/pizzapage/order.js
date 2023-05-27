@@ -1,78 +1,96 @@
 import React from "react";
 
+function Order(props) {
+  const { change, values, submit, disabled, errors } = props;
 
-function Order(props){
-    
-    const {change, values, submit, disabled, errors } = props
+  const onSubmit = event => {
+    event.preventDefault();
+    submit();
+  };
 
-    const onSubmit = event =>{
-        event.preventDefault();
-        submit()
-    }
+  const onChange = event => {
+    const { name, value, type, checked } = event.target;
+    const pizza = type === "checkbox" ? checked : value;
+    change(name, pizza);
+  };
 
-    const onChange = event =>{
-        const {name, value, type, checked} = event.target
-        const pizza = type === 'checkbox' ? checked : value;
-        change(name, pizza)
+  return (
+    <div className="container">
+      <form onSubmit={onSubmit} id="pizza-order">
+        <h1>Order Here!</h1>
         
-    }
-
-
-
-    
-    return(
-        <div>
-                    <Order onSubmit={onSubmit} id="pizza-order">
-                        <h1> Order Here!</h1> 
-                {/* title and then label for the following form with text boxes */}
-                                <label>
-                    Order For:  <input name="Name" id="name-input" type="text" value={values.name} onChange={onChange}><br></br></input>
-                                </label>
-                                
-                                <label>
-                    Pizza Size:     <select name="size" id="size" value={values.size} onChange={onChange} >
-                                    <option value=''> Choose your size pizza!</option>
-                                    <option value="small"> small 12inch</option>
-                                    <option value="medium"> medium 16inch</option>
-                                    <option value="large"> large 20inch</option>
-                                    </select>                
-                                </label>
-
-
-                                <h2>Toppings</h2>
-                                <label>
-                                    Bacon <input type="checkbox" name="Bacon" checked={values.bacon} onChange={onChange}/>
-                                </label>
-                                <label>
-                                    Sausage <input type="checkbox" name="Sausage" checked={values.sausage} onChange={onChange}/>
-                                </label>
-                                <label>
-                                   Pepperoni <input type="checkbox" name="Pepperoni" checked={values.pepperoni} onChange={onChange}/>
-                                </label>
-                                <label>
-                                  Peppers  <input type="checkbox" name="Peppers" checked={values.peppers} onChange={onChange}/>
-                                </label>
-                                <label>
-                                   Mushrooms <input type="checkbox" name="Mushrooms" checked={values.mushrooms} onChange={onChange}/>
-                                </label>
-                                <label>
-                                    Pineapple<input type="checkbox" name="Pineapple" checked={values.pineapple} onChange={onChange}/>
-                                </label>
-                                <label>
-                                   Allergies? <input type="text" name="Custom" checked={values.custom} onChange={onChange} id="custom-box" placeholder="Let us know here"/>
-                                </label>
-                                
-
-                        
-                        <div className="errors">
-                            <span>{errors.name}</span>
-                            <span>{errors.size}</span>
-                        </div>
-
-                                    <button id="order-button" disabled={disabled}>Submit</button>
-                    </Order>
-            
+        <div className="form-group">
+          <label htmlFor="name-input">Order For:</label>
+          <input
+            type="text"
+            name="name"
+            id="name-input"
+            value={values.name}
+            onChange={onChange}
+            className="form-control"
+          />
         </div>
-    )
+
+        <div className="form-group">
+          <label htmlFor="size">Pizza Size:</label>
+          <select
+            name="size"
+            id="size"
+            value={values.size}
+            onChange={onChange}
+            className="form-control"
+          >
+            <option value="">Choose your size pizza!</option>
+            <option value="small">Small 12 inch</option>
+            <option value="medium">Medium 16 inch</option>
+            <option value="large">Large 20 inch</option>
+          </select>
+        </div>
+
+        <h2>Toppings</h2>
+        <div className="form-group">
+          {["bacon", "sausage", "pepperoni", "peppers", "mushrooms", "pineapple"].map(topping => (
+            <label key={topping}>
+              {topping.charAt(0).toUpperCase() + topping.slice(1)}{" "}
+              <input
+                type="checkbox"
+                name={topping}
+                checked={values[topping]}
+                onChange={onChange}
+              />
+            </label>
+          ))}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="custom-box">Allergies?</label>
+          <input
+            type="text"
+            name="custom"
+            value={values.custom}
+            onChange={onChange}
+            id="custom-box"
+            className="form-control"
+            placeholder="Let us know here"
+          />
+        </div>
+
+        <div className="errors">
+          <span>{errors.name}</span>
+          <span>{errors.size}</span>
+        </div>
+
+        <button
+          type="submit"
+          id="order-button"
+          disabled={disabled}
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }
-export default Order
+
+export default Order;

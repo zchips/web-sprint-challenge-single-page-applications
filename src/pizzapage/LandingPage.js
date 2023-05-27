@@ -35,9 +35,11 @@ export default function LandingPage(props) {
 
     const routeToShop = () => {
         console.log('Submitting something to go to the next page');
-        navigate('/pizza');
+        navigate('/pizzapage/order');
     };
 
+
+    // made a small change to the navigate on 38 from '/pizza'
     return (
         <ImgContainer>
             <Img

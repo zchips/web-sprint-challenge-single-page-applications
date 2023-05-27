@@ -48,7 +48,7 @@ const App = () => {
   
 
   const postOrder = newOrder => {
-    axios.post(`https://reqres.in/api/orders`, newOrder).then(res => {setOrder(res.data)}).catch(error=>{console.log(error)}).finally(()=>{
+    axios.post(`https://reqres.in/api/orders`, newOrder).then(res => {setOrder([res.data, ...order])}).catch(error=>{console.log(error)}).finally(()=>{
       setFormValues(initialFormValues);
       confirmation();
     });
@@ -75,12 +75,12 @@ const App = () => {
   }, [formValues]);
 
   return (
-    <>
+    <div>
       <h1>Lambda Za</h1>
       <p>You can remove this code and create your own header or I can not</p>
       <div className="nav-links">
-        <Link exact to='/'> Home</Link>
-        <Link to= {{pathname:'/pizzapage/order'}} id='pizza-order'> Order</Link>
+        <Link to='/'> Home</Link>
+        <Link to='/pizzapage/order' id='pizza-order'> Order</Link>
       </div>
 
       <Routes>
@@ -88,7 +88,7 @@ const App = () => {
         <Route path="/pizzapage/confirmation" element={<Confirmation />} />
         <Route path="/pizzapage/order" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
