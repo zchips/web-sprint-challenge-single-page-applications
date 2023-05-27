@@ -25,9 +25,10 @@ function Order(props) {
             type="text"
             name="name"
             id="name-input"
-            value={values.name}
+            defaultValue={values.name}
             onChange={onChange}
-            className="form-control"
+            placeholder="name"
+            
           />
         </div>
 
@@ -36,7 +37,7 @@ function Order(props) {
           <select
             name="size"
             id="size"
-            value={values.size}
+            defaultValue={values.size}
             onChange={onChange}
             className="form-control"
           >
@@ -55,7 +56,7 @@ function Order(props) {
               <input
                 type="checkbox"
                 name={topping}
-                checked={values[topping]}
+                defaultChecked={values[topping]}
                 onChange={onChange}
               />
             </label>
@@ -67,7 +68,7 @@ function Order(props) {
           <input
             type="text"
             name="custom"
-            value={values.custom}
+            defaultValue={values.custom}
             onChange={onChange}
             id="custom-box"
             className="form-control"
