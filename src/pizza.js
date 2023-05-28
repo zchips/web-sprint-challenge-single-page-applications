@@ -14,6 +14,9 @@ function Order(props) {
     change(name, pizza);
   };
 
+  // Determine the validation status based on the form values
+  const isFormValid = values.name !== "" && values.size !== "";
+
   return (
     <div className="container">
       <form onSubmit={onSubmit} id="pizza-form">
@@ -28,7 +31,6 @@ function Order(props) {
             defaultValue={values.name}
             onChange={onChange}
             placeholder="name"
-            
           />
         </div>
 
@@ -84,9 +86,8 @@ function Order(props) {
         <button
           type="submit"
           id="order-button"
-          disabled={!disabled}
+          disabled={!isFormValid} // Update the disabled attribute
           className="btn btn-primary"
-          onClick={submit}
         >
           Submit
         </button>
