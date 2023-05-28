@@ -35,7 +35,7 @@ export default function LandingPage(props) {
 
     const routeToShop = () => {
         console.log('Submitting something to go to the next page');
-        navigate('/pizza/order');
+        navigate('/pizza');
     };
 
 

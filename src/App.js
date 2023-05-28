@@ -80,13 +80,13 @@ const App = () => {
       <p>You can remove this code and create your own header or I can not</p>
       <div className="nav-links">
         <Link to='/'> Home</Link>
-        <Link to='/pizza/order' id='pizza-order'> Order</Link>
+        <Link to='/pizza' id='pizza-order'> Order</Link>
       </div>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/pizza/confirmation" element={<Confirmation />} />
-        <Route path="/pizza/order" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
+        <Route path="/pizza" element={<Order values={formValues} disabled={disabled} change={inputChange} submit={formSubmit} errors={formErrors} />} />
       </Routes>
     </div>
   );
