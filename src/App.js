@@ -80,7 +80,7 @@ const App = () => {
       <p>You can remove this code and create your own header or I can not</p>
       <div className="nav-links">
         <Link to='/'> Home</Link>
-        <Link to='/pizza' id='pizza-order'> Order</Link>
+        <Link to='/pizza/order' id='pizza-order'> Order</Link>
       </div>
 
       <Routes>

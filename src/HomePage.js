@@ -46,6 +46,7 @@ export default function LandingPage(props) {
                 onClick={routeToShop}
                 src='https://images.unsplash.com/photo-1581873372796-635b67ca2008?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHBpenphfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
                 alt=''
+                id='order-pizza'
             />
             <button
                 onClick={routeToShop}
