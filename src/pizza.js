@@ -86,7 +86,7 @@ function Order(props) {
         <button
           type="submit"
           id="order-button"
-          disabled={!isFormValid} // Update the disabled attribute
+          submit={!isFormValid} // Update the disabled attribute
           className="btn btn-primary"
         >
           Submit
