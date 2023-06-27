@@ -38,7 +38,7 @@ function Order(props) {
           <label id="size-dropdown">Pizza Size:</label>
           <select
             name="size"
-            id="size"
+            id="size-dropdown"
             value={values.size}
             onChange={onChange}
             className="form-control"
@@ -60,19 +60,6 @@ function Order(props) {
                     onChange={onChange}
                 />
         </label>
-          
-          
-          {/* {["bacon", "sausage", "pepperoni", "peppers", "mushrooms", "pineapple"].map(topping => (
-            <label key={topping}>
-              {topping.charAt(0).toUpperCase() + topping.slice(1)}{" "}
-              <input
-                type="checkbox"
-                name={topping}
-                defaultChecked={values[topping]}
-                onChange={onChange}
-              />
-            </label>
-          ))} */}
         </div>
 
                 <div className="form-group">
