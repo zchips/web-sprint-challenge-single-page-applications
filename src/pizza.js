@@ -1,7 +1,7 @@
 import React from "react";
 
 function Order(props) {
-  const { change, values, submit, disabled, errors } = props;
+  const { change, values, submit, errors } = props;
 
   const onSubmit = event => {
     event.preventDefault();
@@ -15,20 +15,20 @@ function Order(props) {
   };
 
   // Determine the validation status based on the form values
-  const isFormValid = values.name !== "" && values.size !== "";
+  // const isFormValid = values.name !== "" && values.size !== "";
 
   return (
-    <div className="container">
+    
       <form onSubmit={onSubmit} id="pizza-form">
         <h1>Order Here!</h1>
         
         <div className="form-group">
-          <label id="name-input">Order For:</label>
+          <label >Order For:</label>
           <input
             type="text"
             name="name"
             id="name-input"
-            defaultValue={values.name}
+            value={values.name}
             onChange={onChange}
             placeholder="name"
           />
@@ -39,7 +39,7 @@ function Order(props) {
           <select
             name="size"
             id="size"
-            defaultValue={values.size}
+            value={values.size}
             onChange={onChange}
             className="form-control"
           >
@@ -52,7 +52,17 @@ function Order(props) {
 
         <h2>Toppings</h2>
         <div className="form-group">
-          {["bacon", "sausage", "pepperoni", "peppers", "mushrooms", "pineapple"].map(topping => (
+        <label>Sausage
+                <input
+                    name='sausage'
+                    type='checkbox'
+                    checked={values.sausage}
+                    onChange={onChange}
+                />
+        </label>
+          
+          
+          {/* {["bacon", "sausage", "pepperoni", "peppers", "mushrooms", "pineapple"].map(topping => (
             <label key={topping}>
               {topping.charAt(0).toUpperCase() + topping.slice(1)}{" "}
               <input
@@ -62,8 +72,68 @@ function Order(props) {
                 onChange={onChange}
               />
             </label>
-          ))}
+          ))} */}
         </div>
+
+                <div className="form-group">
+
+                <label>Bacon
+                      <input
+                          name='bacon'
+                          type='checkbox'
+                          checked={values.bacon}
+                          onChange={onChange}
+                      />
+                </label>
+                </div>
+
+                <div className="form-group">
+
+                <label>Pepperoni
+                      <input
+                          name='pepperoni'
+                          type='checkbox'
+                          checked={values.pepperoni}
+                          onChange={onChange}
+                      />
+                </label>
+                </div>
+
+
+                <div className="form-group">
+
+                <label>Peppers
+                      <input
+                          name='peppers'
+                          type='checkbox'
+                          checked={values.peppers}
+                          onChange={onChange}
+                      />
+                </label>
+                </div>
+
+                <div className="form-group">
+
+                <label>Mushrooms
+                      <input
+                          name='mushrooms'
+                          type='checkbox'
+                          checked={values.mushrooms}
+                          onChange={onChange}
+                      />
+                </label>
+                </div>
+                <div className="form-group">
+
+                <label>pineapple
+                      <input
+                          name='pineapple'
+                          type='checkbox'
+                          checked={values.pineapple}
+                          onChange={onChange}
+                      />
+                </label>
+                </div>
 
         <div className="form-group">
           <label id="special-text">Allergies?</label>
@@ -72,8 +142,8 @@ function Order(props) {
             name="custom"
             defaultValue={values.custom}
             onChange={onChange}
-            id="custom-box"
-            className="form-control"
+            id="special-text"
+            value={values.instructions}
             placeholder="Let us know here"
           />
         </div>
@@ -86,13 +156,13 @@ function Order(props) {
         <button
           type="submit"
           id="order-button"
-          submit={!isFormValid} // Update the disabled attribute
+          // submit={!isFormValid} // Update the disabled attribute
           className="btn btn-primary"
         >
           Submit
         </button>
       </form>
-    </div>
+    
   );
 }
 

@@ -6,6 +6,7 @@ import formSchema from "./pizza/formSchema";
 import axios from "axios";
 import * as yup from "yup";
 import HomePage from "./HomePage";
+import LandingPage from "./HomePage";
 
 const initialFormErrors = {
   name: "",
@@ -25,28 +26,31 @@ const initialFormValues = {
   pineapple: false,
 };
 
+const initialOrders = []
+
 const App = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [disabled, setDisabled] = useState(true);
+  const [orders, setOrders] = useState(initialOrders);
 
   const validate = (name, value) => {
     yup
       .reach(formSchema, name)
       .validate(value)
       .then(() =>
-        setFormErrors((prevErrors) => ({ ...prevErrors, [name]: "" }))
+        setFormErrors({[name]: "" })
       )
-      .catch((error) =>
-        setFormErrors((prevErrors) => ({ ...prevErrors, [name]: error.errors[0] }))
+      .catch(error => setFormErrors({[name]: error.errors[0]})
       );
   };
 
-  const postOrder = (newOrder) => {
+  const postOrder = newOrder => {
     axios
       .post(`https://reqres.in/api/orders`, newOrder)
       .then((res) => {
-        console.log("Order submitted:", res.data);
+        setOrders([res.data, ...orders]);
+        setFormValues(initialFormValues)
+
       })
       .catch((error) => {
         console.log(error);
@@ -55,7 +59,7 @@ const App = () => {
 
   const inputChange = (name, value) => {
     validate(name, value);
-    setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: value }));
+    setFormValues({...formValues, [name]: value});
   };
 
   const formSubmit = () => {
@@ -63,22 +67,27 @@ const App = () => {
       name: formValues.name.trim(),
       size: formValues.size,
       custom: formValues.custom,
-      toppings: [
-        "bacon",
-        "sausage",
-        "pepperoni",
-        "peppers",
-        "mushrooms",
-        "pinneapple",
-      ].filter((toppings) => formValues[toppings]),
+      bacon: formValues.bacon,
+      sausage: formValues.sausage,
+      pepperoni: formValues.pepperoni,
+      peppers: formValues.peppers,
+      mushrooms: formValues.mushrooms,
+      pineapple: formValues.pineapple,
+      // toppings: [
+      //   "bacon",
+      //   "sausage",
+      //   "pepperoni",
+      //   "peppers",
+      //   "mushrooms",
+      //   "pinneapple",
+      // ].filter((toppings) => formValues[toppings]),
     };
     postOrder(newOrder);
-    setFormValues(initialFormValues);
   };
 
-  useEffect(() => {
-    formSchema.isValid(formValues).then((valid) => setDisabled(!valid));
-  }, [formValues]);
+  // useEffect(() => {
+  //   formSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  // }, [formValues]);
 
   return (
     <div>
@@ -91,21 +100,16 @@ const App = () => {
         </Link>
       </div>
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/pizza"
-          element={
-            <Order
-              values={formValues}
-              disabled={disabled}
-              change={inputChange}
-              submit={formSubmit}
-              errors={formErrors}
-            />
-          }
-        />
-      </Routes>
+   <Routes>
+  <Route path="/" element={<HomePage component={LandingPage} />} />
+  <Route path="/pizza" element={<Order
+    id='pizza-form'
+    values={formValues}
+    change={inputChange}
+    submit={formSubmit}
+    errors={formErrors}
+  />} />
+</Routes>
     </div>
   );
 };
