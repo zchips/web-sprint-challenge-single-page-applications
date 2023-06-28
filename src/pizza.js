@@ -130,7 +130,7 @@ function Order(props) {
             onChange={onChange}
             id="special-text"
             value={values.instructions}
-            placeholder="Let us know here"
+            placeholder="Here are the special instructions"
           />
         </div>
 
