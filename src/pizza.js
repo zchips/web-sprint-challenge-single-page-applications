@@ -122,7 +122,7 @@ function Order(props) {
                 </div>
 
         <div className="form-group">
-          <label id="special-text">Allergies?</label>
+          <label >Allergies?</label>
           <input
             type="text"
             name="custom"
