@@ -73,21 +73,11 @@ const App = () => {
       peppers: formValues.peppers,
       mushrooms: formValues.mushrooms,
       pineapple: formValues.pineapple,
-      // toppings: [
-      //   "bacon",
-      //   "sausage",
-      //   "pepperoni",
-      //   "peppers",
-      //   "mushrooms",
-      //   "pinneapple",
-      // ].filter((toppings) => formValues[toppings]),
-    };
+      };
     postOrder(newOrder);
   };
 
-  // useEffect(() => {
-  //   formSchema.isValid(formValues).then((valid) => setDisabled(!valid));
-  // }, [formValues]);
+ 
 
   return (
     <div>

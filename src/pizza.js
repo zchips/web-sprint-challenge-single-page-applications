@@ -14,8 +14,7 @@ function Order(props) {
     change(name, pizza);
   };
 
-  // Determine the validation status based on the form values
-  // const isFormValid = values.name !== "" && values.size !== "";
+
 
   return (
     
@@ -35,7 +34,7 @@ function Order(props) {
         </div>
 
         <div className="form-group">
-          <label id="size-dropdown">Pizza Size:</label>
+          <label>Pizza Size:</label>
           <select
             name="size"
             id="size-dropdown"
@@ -143,7 +142,7 @@ function Order(props) {
         <button
           type="submit"
           id="order-button"
-          // submit={!isFormValid} // Update the disabled attribute
+
           className="btn btn-primary"
         >
           Submit
